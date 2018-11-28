@@ -9,6 +9,9 @@ const {
   poweredByHandler
 } = require('./handlers.js')
 
+const modeCircles = require('./mode/circles.js')
+const modeFindFood = require('./mode/find-food.js')
+
 // For deployment to Heroku, the port needs to be set using ENV, so
 // we check for the port number in process.env
 app.set('port', (process.env.PORT || 9001))
@@ -27,7 +30,7 @@ app.post('/start', (request, response) => {
 
   // Response data
   const data = {
-    color: '#DFFF00',
+    color: '#00ffaa'
   }
 
   return response.json(data)
@@ -37,12 +40,28 @@ app.post('/start', (request, response) => {
 app.post('/move', (request, response) => {
   // NOTE: Do something here to generate your move
 
+  // set mode and process
+  let mode
+  if (request.body.you.health > 30) {
+    mode = modeCircles
+  } else {
+    mode = modeFindFood
+  }
+  console.log(`mode = ${mode.which}`)
+
+  // console.log('mode = ', mode)
+  let move = mode.process(request)
+
+  // console.log('move = ', move)
+
   // Response data
-  const data = {
-    move: 'up', // one of: ['up','down','left','right']
+  const snakeResponse = {
+    move: move // one of: ['up','down','left','right']
   }
 
-  return response.json(data)
+  // console.log('snake response = ', snakeResponse)
+
+  return response.json(snakeResponse)
 })
 
 app.post('/end', (request, response) => {
@@ -52,7 +71,7 @@ app.post('/end', (request, response) => {
 
 app.post('/ping', (request, response) => {
   // Used for checking if this snake is still alive.
-  return response.json({});
+  return response.json({})
 })
 
 // --- SNAKE LOGIC GOES ABOVE THIS LINE ---

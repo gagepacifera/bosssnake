@@ -49,10 +49,11 @@ app.post('/move', (request, response) => {
   // console.log('request body = ', JSON.stringify(request.body, null, 4))
   // console.log('full request = ', request)
 
-  util.adjacent(data)
+  // what is around me?
+  // util.adjacent(data)
 
   // update snarky reactions
-  reactions.update(request)
+  // reactions.update(request)
 
   // set mode and process
   let mode

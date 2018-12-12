@@ -9,9 +9,7 @@ const {
   poweredByHandler
 } = require('./handlers.js')
 
-const request = require('request')
-const http = require('http')
-const querystring = require('querystring')
+const util = require('./util/util.js')
 
 const modeCircles = require('./mode/circles.js')
 const modeFindFood = require('./mode/find-food.js')
@@ -20,14 +18,13 @@ const reactions = require('./reactions/reactions.js')
 
 // For deployment to Heroku, the port needs to be set using ENV, so
 // we check for the port number in process.env
-app.set('port', (process.env.PORT || 9001))
+app.set('port', (process.env.PORT || 9007))
 
 app.enable('verbose errors')
 
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(poweredByHandler)
-
 
 // --- SNAKE LOGIC GOES BELOW THIS LINE ---
 
@@ -46,13 +43,20 @@ app.post('/start', (request, response) => {
 // Handle POST request to '/move'
 app.post('/move', (request, response) => {
   // NOTE: Do something here to generate your move
+  let data = request.body
+
+  // console.log('request body = ', request.body)
+  // console.log('request body = ', JSON.stringify(request.body, null, 4))
+  // console.log('full request = ', request)
+
+  util.adjacent(data)
 
   // update snarky reactions
   reactions.update(request)
 
   // set mode and process
   let mode
-  if (request.body.you.health > 30) {
+  if (data.you.health > 30) {
     mode = modeCircles
   } else {
     mode = modeFindFood
@@ -86,7 +90,7 @@ app.post('/ping', (request, response) => {
 
 // return reactions
 app.get('/react', (request, response) => {
-  response.set({'Access-Control-Allow-Origin': '*'})
+  response.set({ 'Access-Control-Allow-Origin': '*' })
   return response.json(reactions.get())
 })
 

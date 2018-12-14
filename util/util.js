@@ -1,84 +1,158 @@
-// return what is in adjacent squares
-function adjacent (data) {
-  // console.log('adjacent start')
+/*
+ * Choose alternate move if your snake will die
+ */
+function dontDie (gameState, move) {
+  console.log('dont die! move = ' + move + ', gameState = ' + JSON.stringify(gameState))
+  let adjacent = getAdjacent(gameState)
+  console.log('adjacent = ' + JSON.stringify(adjacent))
+  console.log('i am headed toward a ' + adjacent[move])
 
-  let pos = {
-    x: data.you.body[0].x,
-    y: data.you.body[0].y
+  // if current move isn't set or will result in death, pick a better one (if possible)
+  if (!move || move === undefined || (adjacent[move] && adjacent[move].hasOwnProperty('what') && (adjacent[move].what === 'wall' || adjacent[move].what === 'head' || adjacent[move].what === 'body' || adjacent[move].what === 'my-body'))) {
+    console.log('uh oh... headed toward a ' + adjacent[move].what)
+    let myMove
+
+    if (!adjacent.up || adjacent.up === 'food') {
+      myMove = 'up'
+    } else if (!adjacent.right || adjacent.right === 'food') {
+      myMove = 'right'
+    } else if (!adjacent.down || adjacent.down === 'food') {
+      myMove = 'down'
+    } else if (!adjacent.left || adjacent.left === 'food') {
+      myMove = 'left'
+    } else {
+      console.log('checkmate :(')
+      myMove = 'up'
+    }
+
+    console.log(`redirecting ${myMove}`)
+    return myMove
   }
-  console.log(`adjacent: you are at ${pos.x}, ${pos.y}`)
 
-  let map = getBoardMap(data)
-  // console.log(`adjacent: map = ` + map)
+  console.log('whew, not gonna die! headed ' + move + ' toward a space with ' + adjacent[move])
 
-  return {
-    down: 'unknown',
-    left: 'unknown',
-    right: 'unknown',
-    up: 'unknown'
-  }
+  return move
 }
 
-function getBoardMap (data) {
-  console.log('start board map')
+/*
+ * Return what is in adjacent squares
+ */
+function getAdjacent (gameState) {
+  // console.log('adjacent start')
+  let adjacent = {
+    down: null,
+    left: null,
+    right: null,
+    up: null
+  }
+
+  let pos = {
+    x: gameState.you.body[0].x,
+    y: gameState.you.body[0].y
+  }
+  // console.log(`adjacent: your head is at ${pos.x}, ${pos.y}`)
+
+  let map = getBoardMap(gameState)
+  // console.log(`adjacent: map = ` + JSON.stringify(map))
+
+  // get item to left of your head
+  if (pos.x === 0) {
+    adjacent.left = {
+      what: 'wall'
+    }
+  } else {
+    adjacent.left = map[pos.x - 1][pos.y]
+  }
+
+  // get item to right of your head
+  if (pos.x === gameState.board.width - 1) {
+    adjacent.right = {
+      what: 'wall'
+    }
+  } else {
+    adjacent.right = map[pos.x + 1][pos.y]
+  }
+
+  // get item above your head
+  if (pos.y === 0) {
+    adjacent.up = {
+      what: 'wall'
+    }
+  } else {
+    adjacent.up = map[pos.x][pos.y - 1]
+  }
+
+  // get item to top of your head
+  if (pos.y === gameState.board.height - 1) {
+    adjacent.down = {
+      what: 'wall'
+    }
+  } else {
+    adjacent.down = map[pos.x][pos.y + 1]
+  }
+
+  return adjacent
+}
+
+/*
+ * Return game board elements in two dimensional array
+ */
+function getBoardMap (gameState) {
   // create blank map
   let map = []
-  // console.log('start board map 2')
-  for (let x = 0; x < data.board.width; x++) {
-  // let x = 0;
-  // while (x < data.board.width) {
-    // console.log(`make board map: x = ${x}`)
+  for (let x = 0; x < gameState.board.width; x++) {
     map.push([])
-
-    for (let y = 0; y < data.board.height; y++) {
-      // console.log(`make board map: x = ${x}, y = ${y}`)
+    for (let y = 0; y < gameState.board.height; y++) {
       map[x].push(null)
     }
   }
 
   // add snakes to map
-  for (let i = 0; i < data.board.snakes.length; i++) {
-    console.log('snake = ', data.board.snakes[i])
-    for (let j = 0; j < data.board.snakes[i].body.length; j++) {
-      let what;
-      if (j === 0) {
+  gameState.board.snakes.forEach((snake) => {
+    snake.body.forEach((segment, i) => {
+      let what
+      if (i === 0) {
         what = 'head'
-      } else if (j === data.board.snakes[i].body.length - 1) {
+      } else if (i === snake.body.length - 1) {
         what = 'tail'
       } else {
         what = 'body'
       }
-      console.log('what = ' + what)
-      map[data.board.snakes[i].body[j].x][data.board.snakes[i].body[j].y] = {
-        snake: data.board.snakes[i],
+      map[segment.x][segment.y] = {
+        snake: snake,
         what: what
       }
+    })
+  })
+
+  // add you to map
+  gameState.you.body.forEach((segment, i) => {
+    let what
+    if (i === 0) {
+      what = 'my-head'
+    } else if (i === gameState.you.body.length - 1) {
+      what = 'my-tail'
+    } else {
+      what = 'my-body'
     }
-  }
+    map[segment.x][segment.y] = {
+      snake: gameState.you,
+      what: what
+    }
+  })
 
-  // // add you to map
-  // for (let i = 0; i < data.board.you.body.length; i++) {
-  //   let what;
-  //   if (i === 0) {
-  //     what = 'head'
-  //   } else if (i === data.board.you.body.length - 1) {
-  //     what = 'tail'
-  //   } else {
-  //     what = 'body'
-  //   }
-  //   console.log('what = ' + what)
-  //   map[data.board.you.body[i].x][data.board.you.body[i].y] = {
-  //     snake: data.board.you,
-  //     what: what
-  //   }
-  // }
-
-  console.log('getBoardMap finish')
+  // add food to map
+  gameState.board.food.forEach((f) => {
+    map[f.x][f.y] = {
+      what: 'food'
+    }
+  })
 
   return map
 }
 
 module.exports = {
-  adjacent,
+  dontDie,
+  getAdjacent,
   getBoardMap
 }

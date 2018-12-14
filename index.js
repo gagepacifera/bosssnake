@@ -43,31 +43,32 @@ app.post('/start', (request, response) => {
 // Handle POST request to '/move'
 app.post('/move', (request, response) => {
   // NOTE: Do something here to generate your move
-  let data = request.body
+  let gameState = request.body
 
   // console.log('request body = ', request.body)
   // console.log('request body = ', JSON.stringify(request.body, null, 4))
   // console.log('full request = ', request)
-
-  // what is around me?
-  // util.adjacent(data)
 
   // update snarky reactions
   // reactions.update(request)
 
   // set mode and process
   let mode
-  if (data.you.health > 30) {
+  if (gameState.you.health > 30) {
     mode = modeCircles
   } else {
     mode = modeFindFood
   }
-  console.log(`mode = ${mode.which}`)
+  // console.log(`mode = ${mode.which}`)
 
-  // console.log('mode = ', mode)
+  console.log('mode = ', mode.which)
   let move = mode.process(request)
+  console.log('post mode move = ', move)
 
-  // console.log('move = ', move)
+  // Don't die!!
+  // console.log( "adjacent = " + JSON.stringify(util.getAdjacent(gameState)) )
+  move = util.dontDie(gameState, move)
+  console.log('post dont die move = ', move)
 
   // Response data
   const snakeResponse = {

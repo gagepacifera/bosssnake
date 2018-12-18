@@ -14,7 +14,7 @@ const util = require('./util/util.js')
 const modeCircles = require('./mode/circles.js')
 const modeFindFood = require('./mode/find-food.js')
 
-const reactions = require('./reactions/reactions.js')
+// const reactions = require('./reactions/reactions.js')
 
 // For deployment to Heroku, the port needs to be set using ENV, so
 // we check for the port number in process.env
@@ -90,11 +90,11 @@ app.post('/ping', (request, response) => {
   return response.json({})
 })
 
-// return reactions
-app.get('/react', (request, response) => {
-  response.set({ 'Access-Control-Allow-Origin': '*' })
-  return response.json(reactions.get())
-})
+// // return reactions
+// app.get('/react', (request, response) => {
+//   response.set({ 'Access-Control-Allow-Origin': '*' })
+//   return response.json(reactions.get())
+// })
 
 // --- SNAKE LOGIC GOES ABOVE THIS LINE ---
 

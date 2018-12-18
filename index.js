@@ -54,7 +54,7 @@ app.post('/move', (request, response) => {
 
   // set mode and process
   let mode
-  if (gameState.you.health > 30) {
+  if (gameState.you.health > 80) {
     mode = modeCircles
   } else {
     mode = modeFindFood
@@ -63,12 +63,12 @@ app.post('/move', (request, response) => {
 
   console.log('mode = ', mode.which)
   let move = mode.process(request)
-  console.log('post mode move = ', move)
+  // console.log('post mode move = ', move)
 
   // Don't die!!
   // console.log( "adjacent = " + JSON.stringify(util.getAdjacent(gameState)) )
   move = util.dontDie(gameState, move)
-  console.log('post dont die move = ', move)
+  // console.log('post dont die move = ', move)
 
   // Response data
   const snakeResponse = {

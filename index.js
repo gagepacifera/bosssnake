@@ -14,6 +14,10 @@ const util = require('./util/util.js')
 const modeCircles = require('./mode/circles.js')
 const modeFindFood = require('./mode/find-food.js')
 
+// analyzer
+const analyzer = require('./analyzer/analyzer.js')
+analyzer.init(app)
+
 // const reactions = require('./reactions/reactions.js')
 
 // For deployment to Heroku, the port needs to be set using ENV, so
@@ -31,6 +35,7 @@ app.use(poweredByHandler)
 // Handle POST request to '/start'
 app.post('/start', (request, response) => {
   // NOTE: Do something here to start the game
+  analyzer.reset()
 
   // Response data
   const data = {
@@ -44,6 +49,8 @@ app.post('/start', (request, response) => {
 app.post('/move', (request, response) => {
   // NOTE: Do something here to generate your move
   let gameState = request.body
+
+  analyzer.record(gameState)
 
   // console.log('request body = ', request.body)
   // console.log('request body = ', JSON.stringify(request.body, null, 4))

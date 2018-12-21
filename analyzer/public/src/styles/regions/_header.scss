@@ -1,0 +1,125 @@
+header {
+  width: 100%;
+
+  nav.mobile {
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline;
+        margin: 0;
+        padding: 0;
+
+        a {
+          cursor: pointer;
+          display: block;
+
+          &.menu {
+            background-image: icon(menu, $dark);
+            background-repeat: no-repeat;
+            background-size: contain;
+            height: 22px;
+            width: 29px;
+          }
+        }
+      }
+    }
+  }
+
+  nav.primary {
+    display: none; // hidden for mobile
+    line-height: 1em;
+    margin-top: 2px;
+
+    ul {
+      display: flex;
+      flex-flow: row nowrap;
+      list-style: none;
+      margin: 0 #{-$spacer*0.5} 0 0;
+      padding: 0;
+      width: auto;
+
+      li {
+        display: inline;
+        margin: 0 $spacer*0.5;
+
+        a {
+          display: block;
+          font-size: 18px;
+          padding: $spacer*0.5 0;
+          position: relative;
+          text-decoration: none;
+
+          &::after {
+            background-color: $primary;
+            bottom: 0;
+            content: "";
+            height: 3px;
+            left: 0;
+            position: absolute;
+            transform: scaleX(0);
+            width: 100%;
+
+            transition: $transition-all;
+          }
+        }
+
+        &.current_page_item a,
+        &.current_page_parent a,
+        a:hover {
+          color: $dark;
+          text-decoration: none;
+
+          &::after {
+            transform: scaleX(1);
+          }
+        }
+      }
+    }
+  }
+
+  .brand {
+    display: inline-block;
+    font-size: 0.01em;
+    height: $spacer*2;
+    line-height: 0.01em;
+    width: auto;
+
+    img {
+      height: 100%;
+      width: auto;
+    }
+  }
+
+  .container {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    height: $spacer*4;
+    justify-content: space-between;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  @media only screen and (min-width:$handset) {
+    .container {
+      height: $spacer*6;
+    }
+  };
+
+  @media only screen and (min-width:$large-tablet) {
+    .brand {
+      height: $spacer*3;
+    }
+
+    nav.mobile {
+      display: none;
+    }
+
+    nav.primary {
+      display: block;
+    }
+  }
+}

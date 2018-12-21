@@ -1,0 +1,99 @@
+body {
+  color: $dark;
+  font-family: $font;
+  font-size: $font-size;
+  line-height: $line-height;
+}
+
+a {
+  color: $primary;
+  text-decoration: none;
+  transition: $transition-all;
+
+  &:hover {
+    color: $primary-highlight;
+    text-decoration: none;
+  }
+
+  img {
+    border: none;
+  }
+}
+
+@include text-elements {
+  @include first-last-no-margin;
+  margin: $spacer*0.25 auto;
+}
+
+blockquote {
+  font-size: 22px;
+  line-height: $line-height;
+}
+
+@mixin heading {
+  font-family: $heading-font;
+  font-weight: normal;
+  line-height: $heading-line-height;
+  // -webkit-font-smoothing: antialiased;
+}
+
+@mixin h1 {
+  @include heading;
+  font-size: 29px;
+  text-transform: uppercase;
+
+  @media only screen and (min-width:$tablet) {
+    font-size: 34px;
+  }
+}
+
+@mixin h2 {
+  @include heading;
+  font-size: 23px;
+  text-transform: uppercase;
+
+  @media only screen and (min-width:$tablet) {
+    font-size: 25px;
+  }
+}
+
+@mixin h3 {
+  @include heading;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+@mixin h4 {
+  @include heading;
+  font-size: 22px;
+}
+
+@mixin h5 {
+  @include heading;
+  font-size: $font-size;
+  text-transform: uppercase;
+}
+
+@mixin h6 {
+  @include heading;
+  font-size: 16px;
+}
+
+h1 {
+  @include h1;
+}
+h2 {
+  @include h2;
+}
+h3 {
+  @include h3;
+}
+h4 {
+  @include h4;
+}
+h5 {
+  @include h5;
+}
+h6 {
+  @include h6;
+}

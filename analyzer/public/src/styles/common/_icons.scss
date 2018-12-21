@@ -1,0 +1,58 @@
+/*
+ * Functions for returning SVG icons as background images
+ */
+
+//  Function to create an optimized svg url
+//  http://codepen.io/jakob-e/pen/doMoML
+@function svg-url($svg){
+  //  Chunk up string in order to avoid "stack level too deep" error
+  $encoded:'';
+  $slice: 2000;
+  $index: 0;
+  $loops: ceil(str-length($svg)/$slice);
+  @for $i from 1 through $loops {
+    $chunk: str-slice($svg, $index, $index + $slice - 1);
+    //
+    //   Encode (may need a few extra replacements)
+    //
+    $chunk: str-replace($chunk,'"','\'');
+    $chunk: str-replace($chunk,'<','%3C');
+    $chunk: str-replace($chunk,'>','%3E');
+    $chunk: str-replace($chunk,'&','%26');
+    $chunk: str-replace($chunk,'#','%23');
+    $encoded: #{$encoded}#{$chunk};
+    $index: $index + $slice;
+  }
+  @return url("data:image/svg+xml;charset=utf8,#{$encoded}");
+}
+
+
+//  Helper function to replace characters in a string
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+  @return $string;
+}
+
+@function icon($icon, $color) {
+
+  $svgIcons: (
+
+    close: '<?xml version="1.0" encoding="UTF-8"?><svg width="57px" height="57px" viewBox="0 0 57 57" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square"><g id="contact-form" transform="translate(-865.000000, -33.000000)" stroke="' + $color + '" stroke-width="2"><g id="Group-2" transform="translate(867.000000, 35.000000)"><path d="M52.744928,0 L0,52.744928" id="Line"></path><path d="M52.744928,52.744928 L0,0" id="Line"></path></g></g></g></svg>',
+
+    menu: '<svg width="31px" height="22px" viewBox="0 0 31 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="mobile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square"><g id="iPhone-7" transform="translate(-313.000000, -32.000000)" stroke="' + $color + '" stroke-width="2"><g id="hamburger" transform="translate(314.000000, 32.000000)"><path d="M0.5,1 L28.5,1" id="Line"></path><path d="M0.5,11 L28.5,11" id="Line"></path><path d="M0.5,21 L28.5,21" id="Line"></path></g></g></g></svg>',
+
+    tall-arrow-left: '<svg width="78px" height="187px" viewBox="0 0 78 187" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><polygon id="path-1" points="16.7118602 93.5696667 67.5191112 173.845123 63.2942102 176.519111 10.8271125 93.6269031 63.2942102 10.6202222 67.5191112 13.2942102"></polygon><filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2"><feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology><feOffset dx="0" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset><feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur><feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.25 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix></filter></defs><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Combined-Shape" fill-rule="nonzero"><use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use><use fill="' + $color + '" fill-rule="evenodd" xlink:href="#path-1"></use></g></g></svg>',
+
+    tall-arrow-right: '<svg width="78px" height="187px" viewBox="0 0 78 187" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><polygon id="path-1" points="16.7118602 93.5696667 67.5191112 173.845123 63.2942102 176.519111 10.8271125 93.6269031 63.2942102 10.6202222 67.5191112 13.2942102"></polygon><filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2"><feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology><feOffset dx="0" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset><feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur><feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.25 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix></filter></defs><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Combined-Shape" fill-rule="nonzero" transform="translate(39.173112, 93.569667) rotate(180.000000) translate(-39.173112, -93.569667) "><use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use><use fill="' + $color + '" fill-rule="evenodd" xlink:href="#path-1"></use></g></g></svg>',
+
+  );
+
+  @if ($icon != '') {
+    @return svg-url(map-get($svgIcons, $icon));
+  } @else {
+    @return none;
+  }
+}

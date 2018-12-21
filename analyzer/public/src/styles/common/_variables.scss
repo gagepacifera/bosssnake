@@ -1,0 +1,34 @@
+// breakpoints
+$handset: 480px;
+$tablet: 600px;
+$large-tablet: 800px;
+$desktop: 920px;
+$large: 1200px;
+
+// colors
+$dark: #333;
+$gray: #bbb;
+$primary: red;
+$primary-highlight: lighten($primary, 10%);
+
+// fonts
+$font: "lucida grande", tahoma, sans-serif;
+$heading-font: "lucida grande", tahoma, sans-serif;
+
+// spacing
+$spacer: 20px;
+$content-max-width: 824px;
+
+// typography related
+$font-size: 16px;
+$line-height: 1.4em;
+$heading-line-height: 1.15em;
+
+// borders
+$border-width: 1px;
+$border-color: $gray;
+$border: $border-width solid $border-color;
+
+// animation
+$transition-duration: 500ms;
+$transition-all: all $transition-duration ease;

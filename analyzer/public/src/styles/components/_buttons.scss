@@ -1,0 +1,76 @@
+/*
+ * Buttons
+ */
+
+// button selectors
+@mixin button-elements {
+  input[type="submit"],
+  input[type="button"],
+  button,
+  .btn {
+    @content;
+  }
+}
+
+// include button styles
+@mixin button {
+  @include first-last-no-margin;
+  background-color: $primary;
+  border: none;
+  border-radius: 0;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: $font;
+  font-size: $font-size;
+  line-height: $heading-line-height;
+  margin: $spacer*0.25 0;
+  padding: $spacer*0.33 $spacer*0.67 $spacer*0.33;
+  transition: $transition-all;
+  white-space: normal;
+  width: auto;
+  -webkit-appearance: none;
+
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    color: white;
+  }
+
+  &:hover {
+    background-color: $primary-highlight;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &.secondary {
+    background-color: $gray;
+
+    &:hover {
+      background-color: lighten($gray, 10%);
+    }
+  }
+
+  @media only screen and (min-width:$tablet) {
+    margin: 0 $spacer*0.25;
+    padding: $spacer*0.5 $spacer;
+
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+@include button-elements {
+  @include button;
+}

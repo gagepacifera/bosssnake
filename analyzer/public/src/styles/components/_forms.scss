@@ -1,0 +1,63 @@
+@mixin text-input-elements {
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  input[type='phone'],
+  input[type='tel'],
+  textarea {
+    @content;
+  }
+}
+
+form {
+  @include first-last-no-margin;
+  margin: $spacer 0;
+  text-align: left;
+}
+
+@include text-input-elements {
+  border: 1px solid $gray;
+  border-radius: 0;
+  color: $dark;
+  font-family: $font;
+  font-size: $font-size;
+  line-height: $font-size;
+  padding: 7px 10px;
+  width: 100%;
+
+  @include placeholder {
+    color: $gray;
+  }
+}
+
+@include text-input-elements {
+  &:not(textarea) {
+    height: 2.5em;
+  }
+}
+
+textarea {
+  font-size: 1em;
+  line-height: $line-height;
+  height: 100px;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  margin-right: $spacer*0.25;
+}
+
+label {
+  @include first-last-no-margin;
+  display: block;
+  margin: $spacer*0.5 0;
+}
+
+.row {
+  @include first-last-no-margin;
+  margin: $spacer*0.5 0;
+
+  .buttons {
+    margin: $spacer 0 0;
+  }
+}

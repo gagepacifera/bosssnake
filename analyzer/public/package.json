@@ -1,0 +1,33 @@
+{
+  "name": "battlesnake-analyzer",
+  "description": "Analyze your node snake's moves",
+  "version": "0.0.0",
+  "private": true,
+  "author": "",
+  "repository": "",
+  "licenses": [
+    {
+      "type": "WTFPL",
+      "url": "http://www.wtfpl.net/txt/copying/"
+    }
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^2.0.1",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "path": "^0.12.7",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "webpack": "^4.28.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": "8.x"
+  },
+  "scripts": {}
+}

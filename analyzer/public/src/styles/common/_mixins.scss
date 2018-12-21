@@ -1,0 +1,60 @@
+// remove top margin from first child and bottom margin from last child
+@mixin first-last-no-margin {
+  &:first-child {
+    margin-top: 0;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// apply global container styles
+@mixin container {
+  margin: 0 auto;
+  max-width: $spacer*4 + $content-max-width;
+  padding: $spacer*2 $spacer;
+  width: 100%;
+
+  @media only screen and (min-width:$handset) {
+    padding-right: $spacer*2;
+    padding-left: $spacer*2;
+  }
+}
+
+// general content item
+@mixin text-elements {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul,
+  ol,
+  li,
+  blockquote {
+    @content;
+  }
+}
+
+// clearfix
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+/*
+ * this one breaks atom's code highlighting, so it goes last
+ */
+
+// add input element placeholder styles
+@mixin placeholder {
+  &::-webkit-input-placeholder { @content }
+  &:-moz-placeholder { @content }
+  &::-moz-placeholder { @content }
+  &:-ms-input-placeholder { @content }
+}

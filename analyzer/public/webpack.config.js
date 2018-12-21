@@ -9,6 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/dist',
   },
+  watch: true,
 
   module: {
     rules: [

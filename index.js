@@ -35,7 +35,6 @@ app.use(poweredByHandler)
 // Handle POST request to '/start'
 app.post('/start', (request, response) => {
   // NOTE: Do something here to start the game
-  analyzer.reset()
 
   // Response data
   const data = {
@@ -51,10 +50,6 @@ app.post('/move', (request, response) => {
   let gameState = request.body
 
   analyzer.record(gameState)
-
-  // console.log('request body = ', request.body)
-  // console.log('request body = ', JSON.stringify(request.body, null, 4))
-  // console.log('full request = ', request)
 
   // update snarky reactions
   // reactions.update(request)

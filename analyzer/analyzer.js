@@ -1,13 +1,14 @@
 const express = require('express')
 
-let history = []
+let games = []
+let currGameId = ''
 
 function init(app) {
   try {
     // return game state history in json format
     app.get('/analyze', (request, response) => {
       response.set({ 'Access-Control-Allow-Origin': '*' })
-      return response.json( {history: history} )
+      return response.json( {games: games} )
     })
     // serve analyzer page
     app.use('/analyzer', express.static('analyzer/public'))
@@ -18,7 +19,17 @@ function init(app) {
 
 function record(gameState) {
   try {
-    history.push(gameState)
+    // if games is empty, or if new game, add new game object
+    if (games.length === 0 || gameState.game.id !== currGameId) {
+      games.push({
+        gameId: gameState.game.id,
+        history: [],
+      })
+      currGameId = gameState.game.id
+    }
+
+    // push history to latest game
+    games[games.length-1].history.push(gameState)
   } catch (err) {
     console.error('record: err = ', err)
   }
@@ -27,7 +38,7 @@ function record(gameState) {
 
 function reset(gameState) {
   try {
-    history = []
+    games = []
   } catch (err) {
     console.error('reset: err = ', err)
   }

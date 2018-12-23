@@ -14,9 +14,6 @@ const util = require('./util/util.js')
 const modeCircles = require('./mode/circles.js')
 const modeFindFood = require('./mode/find-food.js')
 
-// analyzer
-const analyzer = require('./analyzer/analyzer.js')
-analyzer.init(app)
 
 // const reactions = require('./reactions/reactions.js')
 
@@ -31,6 +28,10 @@ app.use(bodyParser.json())
 app.use(poweredByHandler)
 
 // --- SNAKE LOGIC GOES BELOW THIS LINE ---
+
+// analyzer
+const analyzer = require('./analyzer/analyzer.js')
+analyzer.init(app)
 
 // Handle POST request to '/start'
 app.post('/start', (request, response) => {

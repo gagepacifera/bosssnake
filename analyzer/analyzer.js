@@ -7,8 +7,10 @@ function init(app) {
   try {
     // return game state history in json format
     app.get('/analyze', (request, response) => {
-      response.set({ 'Access-Control-Allow-Origin': '*' })
-      return response.json( {games: games} )
+      response.set({
+        'Access-Control-Allow-Origin': '*'
+      })
+      return response.json( {games:games} )
     })
     // serve analyzer page
     app.use('/analyzer', express.static('analyzer/public'))

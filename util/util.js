@@ -11,8 +11,8 @@ function dontDie (gameState, move) {
 
     // if move is invalid, get random move
     if (!move || move === undefined || move === null || moves.indexOf(move) === -1) {
-      console.log('INVALID MOVE!! picking a rando')
       move = getRandomMove()
+      console.log(`INVALID MOVE!! picking a rando (${move})`)
     }
 
     // figure out what's around me
@@ -172,7 +172,7 @@ function getBoardMap (gameState) {
   } catch (err) {
 
     console.error('getBoardMap: error = ', err)
-    
+
   }
 }
 

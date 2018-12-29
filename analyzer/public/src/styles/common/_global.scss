@@ -31,10 +31,68 @@ img {
   }
 }
 
-section {
-  position: relative;
+// .container {
+//   @include container;
+// }
+
+.games-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: inline;
+    margin: 0 $spacer 0 0;
+    padding: 0;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.active {
+      font-weight: bold;
+    }
+
+    a {
+      cursor: pointer;
+    }
+  }
 }
 
-.container {
-  @include container;
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    background-color: seagreen;
+    cursor: pointer;
+    flex-grow: 1;
+    height: 10px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    &.active {
+      background-color: orange;
+
+      &::after {
+        background-color: red;
+        border-radius: 50%;
+        color: red;
+        content: '';
+        display: block;
+        height: 20px;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        z-index: 1;
+      }
+    }
+  }
 }

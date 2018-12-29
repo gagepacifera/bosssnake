@@ -12,18 +12,51 @@
   <link rel="stylesheet" type="text/css" href="dist/styles/main.css">
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+  <script src="dist/bundle.js"></script>
 </head>
 
 <body>
 
-<h1>Let us analyze.</h1>
-<p>All together now</p>
+<!-- <h1>Let us analyze.</h1>
+<p>All together now</p> -->
 
-<div id="app">
+<!-- <div id="app">
   {{ message }}
+</div> -->
+
+<div id="wrapper">
+
+<div v-if="games && games.length > 0">
+  <h1>Games</h1>
+  <ul class="games-list">
+    <li
+      v-bind:class="{'active':(index === currGame)}"
+      v-for="(game,index) in games">
+      <a
+        v-on:click="currGame = index; currTurn = 0">
+        {{ game.date | formatTime }}
+      </a>
+    </li>
+  </ul>
+  <ul class="timeline">
+    <li
+      v-bind:class="{'active':(index === currTurn)}"
+      v-for="(state,index) in games[currGame].history"
+      v-on:click="currTurn = index">
+    </li>
+  </ul>
+  <table>
+    <tr>
+      <td><pre>{{ games[currGame].history[currTurn] }}</pre></td>
+    </tr>
+  </table>
 </div>
 
-<script src="dist/bundle.js"></script>
+<div v-if="!games || games.length == 0">
+  <h2>No games to analyze.</h2>
+</div>
+
+</div><!-- end #wrapper -->
 
 </body>
 </html>

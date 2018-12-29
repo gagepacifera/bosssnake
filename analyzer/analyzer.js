@@ -23,7 +23,8 @@ function record(gameState) {
   try {
     // if games is empty, or if new game, add new game object
     if (games.length === 0 || gameState.game.id !== currGameId) {
-      games.push({
+      games.unshift({
+        date: new Date(),
         gameId: gameState.game.id,
         history: [],
       })
@@ -31,7 +32,7 @@ function record(gameState) {
     }
 
     // push history to latest game
-    games[games.length-1].history.push(gameState)
+    games[0].history.push(gameState)
   } catch (err) {
     console.error('record: err = ', err)
   }

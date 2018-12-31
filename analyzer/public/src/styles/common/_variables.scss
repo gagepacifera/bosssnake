@@ -8,8 +8,10 @@ $large: 1200px;
 // colors
 $dark: #333;
 $gray: #bbb;
-$primary: red;
+$primary: #f39;
 $primary-highlight: lighten($primary, 10%);
+$secondary: #884dff;
+$secondary-highlight: lighten($secondary, 10%);
 
 // fonts
 $font: "lucida grande", tahoma, sans-serif;
@@ -17,7 +19,7 @@ $heading-font: "lucida grande", tahoma, sans-serif;
 
 // spacing
 $spacer: 20px;
-$content-max-width: 824px;
+// $content-max-width: 824px;
 
 // typography related
 $font-size: 16px;

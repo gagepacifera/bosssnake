@@ -17,44 +17,61 @@
 
 <body>
 
-<!-- <h1>Let us analyze.</h1>
-<p>All together now</p> -->
+<div id="wrapper" class="container">
 
-<!-- <div id="app">
-  {{ message }}
-</div> -->
+  <div v-if="games && games.length > 0">
+    <h3>Select game:</h3>
+    <ul class="games-list">
+      <li
+        v-bind:class="{'active':(index === currGame)}"
+        v-for="(game,index) in games">
+        <a
+          v-on:click="currGame = index; currTurn = 0">
+          {{ game.date | formatTime }}
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="controls">
+      <ul class="timeline-nav">
+        <li>
+          <a v-on:click="currTurn = 0">
+            &laquo;
+          </a>
+        </li>
+        <li>
+          <a v-on:click="(currTurn > 0) ? currTurn-- : false">
+            &lsaquo;
+          </a>
+        </li>
+        <li>
+          <a v-on:click="(currTurn < games[currGame].history.length - 1) ? currTurn++ : false">&rsaquo;</a>
+        </li>
+        <li>
+          <a v-on:click="currTurn = games[currGame].history.length - 1">
+            &raquo;
+          </a>
+        </li>
+      </ul>
+      <ul class="timeline">
+        <li
+          v-bind:class="{'active':(index === currTurn)}"
+          v-for="(state,index) in games[currGame].history"
+          v-on:click="currTurn = index">
+        </li>
+      </ul>
+    </div>
+    <hr>
+    <table>
+      <tr>
+        <td><pre>{{ games[currGame].history[currTurn] }}</pre></td>
+      </tr>
+    </table>
+  </div>
 
-<div id="wrapper">
-
-<div v-if="games && games.length > 0">
-  <h1>Games</h1>
-  <ul class="games-list">
-    <li
-      v-bind:class="{'active':(index === currGame)}"
-      v-for="(game,index) in games">
-      <a
-        v-on:click="currGame = index; currTurn = 0">
-        {{ game.date | formatTime }}
-      </a>
-    </li>
-  </ul>
-  <ul class="timeline">
-    <li
-      v-bind:class="{'active':(index === currTurn)}"
-      v-for="(state,index) in games[currGame].history"
-      v-on:click="currTurn = index">
-    </li>
-  </ul>
-  <table>
-    <tr>
-      <td><pre>{{ games[currGame].history[currTurn] }}</pre></td>
-    </tr>
-  </table>
-</div>
-
-<div v-if="!games || games.length == 0">
-  <h2>No games to analyze.</h2>
-</div>
+  <div v-if="!games || games.length == 0">
+    <h2>No games to analyze.</h2>
+  </div>
 
 </div><!-- end #wrapper -->
 

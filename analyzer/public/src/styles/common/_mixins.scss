@@ -8,18 +8,18 @@
   }
 }
 
-// apply global container styles
-@mixin container {
-  margin: 0 auto;
-  max-width: $spacer*4 + $content-max-width;
-  padding: $spacer*2 $spacer;
-  width: 100%;
-
-  @media only screen and (min-width:$handset) {
-    padding-right: $spacer*2;
-    padding-left: $spacer*2;
-  }
-}
+// // apply global container styles
+// @mixin container {
+//   margin: 0 auto;
+//   max-width: $spacer*4 + $content-max-width;
+//   padding: $spacer*2 $spacer;
+//   width: 100%;
+//
+//   @media only screen and (min-width:$handset) {
+//     padding-right: $spacer*2;
+//     padding-left: $spacer*2;
+//   }
+// }
 
 // general content item
 @mixin text-elements {

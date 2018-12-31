@@ -6,6 +6,24 @@
   flex-flow: row nowrap;
 }
 
+.game-info {
+  font-size: 16px;
+  margin-left: $spacer;
+}
+
+.select-game {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+
+  label {
+    @include h3;
+    display: inline;
+    margin: 0 $spacer 0 0;
+  }
+}
+
 .timeline-nav {
   display: flex;
   flex-flow: row nowrap;
@@ -33,7 +51,7 @@
 .timeline {
   display: flex;
   flex-grow: 1;
-  justify-content: space-between;
+  justify-content: flex-start;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -49,7 +67,7 @@
     position: relative;
 
     &.active {
-      background-color: $primary;
+      background-color: transparent;
 
       &::after {
         background-color: $primary;

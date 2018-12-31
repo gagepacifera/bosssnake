@@ -20,18 +20,24 @@
 <div id="wrapper" class="container">
 
   <div v-if="games && games.length > 0">
-    <h3>Select game:</h3>
-    <ul class="games-list">
-      <li
-        v-bind:class="{'active':(index === currGame)}"
-        v-for="(game,index) in games">
-        <a
-          v-on:click="currGame = index; currTurn = 0">
-          {{ game.date | formatTime }}
-        </a>
-      </li>
-    </ul>
+    <div class="select-game">
+      <label for="select-game">Select game:</label>
+      <select
+        id="select-game"
+        v-model="currGame">
+        <option
+          v-for="(game,index) in games"
+          v-bind:value="index">
+          {{ game.date | formatTime }} ({{ game.gameId }})
+        </option>
+      </select>
+      <!-- <div class="game-info">
+        <p>{{ games[currGame].gameId }}</p>
+      </div> -->
+    </div>
+
     <hr>
+
     <div class="controls">
       <ul class="timeline-nav">
         <li>
@@ -61,7 +67,9 @@
         </li>
       </ul>
     </div>
+
     <hr>
+
     <table>
       <tr>
         <td><pre>{{ games[currGame].history[currTurn] }}</pre></td>

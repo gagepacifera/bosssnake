@@ -1,9 +1,4 @@
-// var app = new Vue({
-//   el: '#app',
-//   data: {
-//     message: 'Hello Vue!'
-//   }
-// })
+const board = require('./js/board.js')
 
 var analyzerData;
 
@@ -29,7 +24,25 @@ fetch('http://localhost:5000/analyze', { mode: "no-cors" })
 
 Vue.filter('formatTime', function(date) {
   if (date) {
-    console.log('date = ', date)
     return new Date(date).toLocaleTimeString(navigator.language, {hour:'2-digit', minute:'2-digit', second:'2-digit'})
+  }
+})
+
+Vue.component('board', {
+  render: function (createElement) {
+    return createElement(
+      'div',
+      {
+        domProps: {
+          innerHTML: board.display(this.state)
+        }
+      }
+    )
+  },
+  props: {
+    state: {
+      type: Object,
+      required: true
+    }
   }
 })

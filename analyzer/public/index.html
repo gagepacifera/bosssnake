@@ -70,11 +70,8 @@
 
     <hr>
 
-    <table>
-      <tr>
-        <td><pre>{{ games[currGame].history[currTurn] }}</pre></td>
-      </tr>
-    </table>
+    <board :state="games[currGame].history[currTurn]"></board>
+    <!-- <board :state="{'game':{'id':'996c76c6-5dfb-4e4c-96f2-ced0df6f0606'},'turn':14,'board':{'height':4,'width':4,'food':[{'x':1,'y':0}],'snakes':[{'id':'a0f94b45-8dc9-4aad-89f3-ffecfde59111','name':'bosssnake','health':86,'body':[{'x':2,'y':1},{'x':1,'y':1},{'x':1,'y':2}]}]},'you':{'id':'a0f94b45-8dc9-4aad-89f3-ffecfde59111','name':'bosssnake','health':86,'body':[{'x':2,'y':1},{'x':1,'y':1},{'x':1,'y':2}]}}"></board> -->
   </div>
 
   <div v-if="!games || games.length == 0">

@@ -5,8 +5,34 @@ function display (gameState) {
   try {
 
     let map = getBoardMap(gameState)
-    return `<p>Turn = <strong>${gameState.turn}</strong></p>`
-    
+
+    var html = ``
+    html += `<div id="board" class="board">`
+
+    let x = 0;
+    let y = 0;
+    while( y < map[0].length ) {
+      html += `<div class="tile x-${x} y-${y} ${map[x][y].what}"><!-- ${map[x][y].what} --></div>`
+      if ( x == gameState.board.width - 1) {
+        x = 0
+        y++
+      } else {
+        x++
+      }
+    }
+
+    html += `</div>`
+
+    // write variable board styles
+    html += `<style>
+      #board {
+        grid-template-columns: repeat(${gameState.board.width}, 1fr);
+        grid-template-rows: repeat(${gameState.board.height}, 1fr);
+      }
+    </style>`
+
+    return html
+
   } catch (err) {
 
     console.error('gameState: error = ', err)
@@ -33,9 +59,9 @@ function getBoardMap (gameState) {
     gameState.board.snakes.forEach((snake) => {
       snake.body.forEach((segment, i) => {
         let what
-        if (i === 0) {
+        if (gameState.turn === 0 || i === 0) {
           what = 'head'
-        } else if (i === snake.body.length - 1) {
+        } else if ((gameState.turn === 1 && i > 0 && i < 3) || i === snake.body.length - 1) {
           what = 'tail'
         } else {
           what = 'body'
@@ -50,9 +76,9 @@ function getBoardMap (gameState) {
     // add you to map
     gameState.you.body.forEach((segment, i) => {
       let what
-      if (i === 0) {
+      if (gameState.turn === 0 || i === 0) {
         what = 'my-head'
-      } else if (i === gameState.you.body.length - 1) {
+      } else if ((gameState.turn === 1 && i > 0 && i < 3) || i === gameState.you.body.length - 1) {
         what = 'my-tail'
       } else {
         what = 'my-body'

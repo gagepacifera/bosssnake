@@ -31,7 +31,33 @@ img {
   }
 }
 
+.cols {
+  .info {
+    margin-top: $spacer;
+  }
+  .viz {
+    position: relative;
+  }
+
+  @media only screen and (min-width:$tablet) {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    .info {
+      margin: 0 0 0 $spacer;
+      max-width: 500px;
+      width: calc(50% - #{$spacer});
+    }
+    .viz {
+      flex-grow: 1;
+    }
+  }
+}
+
 .container {
+  margin: 0 auto;
+  max-width: 1200px;
   padding: $spacer*2 $spacer*2;
   width: 100%;
 }
@@ -59,4 +85,16 @@ img {
       cursor: pointer;
     }
   }
+}
+
+.json {
+  font-size: 10px;
+  max-height: calc(100vh - 200px);
+  overflow: auto;
+}
+
+.top {
+  border-bottom : 1px solid $gray;
+  margin-bottom: $spacer*2;
+  padding-bottom: $spacer;
 }

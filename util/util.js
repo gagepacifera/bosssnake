@@ -130,9 +130,9 @@ function getBoardMap (gameState) {
     gameState.board.snakes.forEach((snake) => {
       snake.body.forEach((segment, i) => {
         let what
-        if (i === 0) {
+        if (gameState.turn === 0 || i === 0) {
           what = 'head'
-        } else if (i === snake.body.length - 1) {
+        } else if ((gameState.turn === 1 && i > 0 && i < 3) || i === snake.body.length - 1) {
           what = 'tail'
         } else {
           what = 'body'
@@ -147,9 +147,9 @@ function getBoardMap (gameState) {
     // add you to map
     gameState.you.body.forEach((segment, i) => {
       let what
-      if (i === 0) {
+      if (gameState.turn === 0 || i === 0) {
         what = 'my-head'
-      } else if (i === gameState.you.body.length - 1) {
+      } else if ((gameState.turn === 1 && i > 0 && i < 3) || i === gameState.you.body.length - 1) {
         what = 'my-tail'
       } else {
         what = 'my-body'

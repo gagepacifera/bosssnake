@@ -1,0 +1,48 @@
+$board-border: 1px solid $gray;
+$my-snake: #2aa801;
+$other-snake: #9155ad;
+$food: #ff9d34;
+
+.board-wrapper {
+  position: relative;
+  height: 0;
+  padding-top: 100%;
+  width: 100%;
+}
+
+.board {
+  background-color: $light-gray;
+  border-top: $board-border;
+  border-left: $board-border;
+  display: grid;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  >* {
+    border-bottom: $board-border;
+    border-right: $board-border;
+
+    &.my-head {
+      background-color: darken($my-snake, 10%);
+    }
+    &.my-body,
+    &.my-tail {
+      background-color: $my-snake;
+    }
+
+    &.head {
+      background-color: darken($other-snake, 10%);
+    }
+    &.body,
+    &.tail {
+      background-color: $other-snake;
+    }
+
+    &.food {
+      background-color: $food;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+# Battlesnake analyzer tool
+
+### To do
+
+* use right/left arrow key to scroll through turns
+* add console messages from snake
+* heatmap function
+* add snake health meters
+* tuck away game state json (click to reveal)
+* click to copy game state data
+* account for possibility of multiple same snakes
+* account for possibility of simultaneous different games
+* consider overlaying snake next moves

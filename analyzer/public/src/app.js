@@ -15,7 +15,24 @@ fetch('http://localhost:5000/analyze', { mode: "no-cors" })
         currGame: 0,
         currTurn: 0,
         games: data.games
-      }
+      },
+      methods: {
+        handleKeyPress(e) {
+          const keyCode = String(e.keyCode || e.code || e.keyIdentifier)
+          if (keyCode == 37) { // left arrow
+            if (analyzerData.currTurn > 0) {
+              analyzerData.currTurn--
+            }
+          } else if (keyCode == 39) { // right arrow
+            if (analyzerData.currTurn < analyzerData.games[analyzerData.currGame].history.length - 1) {
+              analyzerData.currTurn++
+            }
+          }
+        },
+      },
+      created: function () {
+        window.addEventListener('keyup', this.handleKeyPress)
+      },
     })
   })
   .catch((err) => {

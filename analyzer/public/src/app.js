@@ -1,3 +1,5 @@
+import Vue from '../node_modules/vue/dist/vue.js'
+
 const board = require('./js/board.js')
 
 var analyzerData;

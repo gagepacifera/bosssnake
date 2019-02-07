@@ -2,7 +2,6 @@
 
 ### To do
 
-* use right/left arrow key to scroll through turns
 * add console messages from snake
 * heatmap function
 * add snake health meters

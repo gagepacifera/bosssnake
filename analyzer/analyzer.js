@@ -2,6 +2,7 @@ const express = require('express')
 
 let games = []
 let currGameId = ''
+let lastRecordedGameState = false
 
 function init(app) {
   try {
@@ -19,6 +20,38 @@ function init(app) {
   }
 }
 
+function getGameIndex(gameId) {
+  // console.log(`gameId = ${gameId}`)
+  try {
+    let gameIndex = false
+    games.forEach((game, i) => {
+      console.log('getGameIndex: this games array item id is ', game.gameId)
+      if (game.gameId === gameId) {
+        console.log('getGameIndex: index match found!')
+        gameIndex = i
+      }
+    })
+    return gameIndex
+  } catch (err) {
+    console.log(`gameState: error: ${err}`)
+    return false
+  }
+}
+
+function log(str, gameState = lastRecordedGameState) {
+  try {
+    if (gameState) {
+      let gameIndex = getGameIndex(gameState.game.id)
+      console.log(`log: ${str}, turn = ${gameState.turn}, game id = ${gameState.game.id}, game index = ${gameIndex}`)
+      // return `log: ${str}, turn = ${gameState.turn}, game index = ${gameIndex}`
+      games[gameIndex].log[gameState.turn].push(str)
+    }
+  } catch (err) {
+    console.error('log: err = ', err, 'gameState = ', gameState)
+    // return `log: error: ${err}`
+  }
+}
+
 function record(gameState) {
   try {
     // if games is empty, or if new game, add new game object
@@ -27,12 +60,15 @@ function record(gameState) {
         date: new Date(),
         gameId: gameState.game.id,
         history: [],
+        log: [],
       })
       currGameId = gameState.game.id
     }
 
     // push history to latest game
     games[0].history.push(gameState)
+    games[0].log.push([])
+    lastRecordedGameState = gameState
   } catch (err) {
     console.error('record: err = ', err)
   }
@@ -50,6 +86,7 @@ function reset(gameState) {
 
 module.exports = {
   init,
+  log,
   record,
   reset,
 }

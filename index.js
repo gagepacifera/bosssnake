@@ -63,6 +63,12 @@ app.post('/move', (request, response) => {
     mode = modeFindFood
   }
   // console.log(`mode = ${mode.which}`)
+  try {
+    analyzer.log(`mode = ${mode.which}`)
+    analyzer.log(`health = ${gameState.you.health}`)
+  } catch (err) {
+    console.error('analyzer log: error: ', err)
+  }
 
   console.log('mode = ', mode.which)
   let move = mode.process(request)

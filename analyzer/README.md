@@ -12,3 +12,4 @@
 * maintain aspect ratio for non-square boards
 * fancy up board elements
 * consider overlaying snake next moves
+* fix passing in game state from analyze.log

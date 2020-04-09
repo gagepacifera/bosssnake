@@ -6,12 +6,12 @@ var analyzerData;
 
 fetch('http://localhost:5000/analyze', { mode: "no-cors" })
   .then((response) => {
-    console.log("response = ", response)
+    // console.log("response = ", response)
     return response.json()
   })
   .then((data) => {
     // console.log("data = " + JSON.stringify(data))
-    console.log("data = ", data)
+    // console.log("data = ", data)
     analyzerData = new Vue({
       el: '#wrapper',
       data: {
@@ -32,6 +32,9 @@ fetch('http://localhost:5000/analyze', { mode: "no-cors" })
             }
           }
         },
+        consoleDir(state) {
+          console.dir(JSON.parse(JSON.stringify(state)))
+        }
       },
       created: function () {
         window.addEventListener('keyup', this.handleKeyPress)
@@ -40,22 +43,22 @@ fetch('http://localhost:5000/analyze', { mode: "no-cors" })
         displayConsole: function() {
           try {
             if (analyzerData && analyzerData.hasOwnProperty('games') && analyzerData.games) {
-              console.log('we have analyzerData and games')
+              // console.log('we have analyzerData and games')
               // console.log(analyzerData.games[analyzerData.currGame].log[analyzerData.currTurn][0])
               var logs = analyzerData.games[analyzerData.currGame].log[analyzerData.currTurn];
-              if (logs){
-                logs.forEach((l) => {
-                  console.log(l)
-                })
-              }
+              // if (logs){
+              //   logs.forEach((l) => {
+              //     console.log(l)
+              //   })
+              // }
             //    // this.displayConsoleMessages()
             //    // return `${this.currTurn}`
             //    return analyzerData.games[analyzerData.currGame].log[analyzerData.currTurn]
             }
-             else {
-               console.log('displayConsole: analyzerData = ', analyzerData)
-               return `${this.currTurn}`
-             }
+             // else {
+             //   console.log('displayConsole: analyzerData = ', analyzerData)
+             //   return `${this.currTurn}`
+             // }
           } catch (err) {
            console.error('displayConsole: err = ', err, 'analyzerData = ', analyzerData)
           }

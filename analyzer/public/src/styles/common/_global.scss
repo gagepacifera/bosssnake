@@ -35,8 +35,13 @@ img {
   .info {
     margin-top: $spacer;
   }
+
   .viz {
     position: relative;
+
+    p {
+      font-size: $font-size-small;
+    }
   }
 
   @media only screen and (min-width:$tablet) {

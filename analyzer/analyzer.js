@@ -25,9 +25,9 @@ function getGameIndex(gameId) {
   try {
     let gameIndex = false
     games.forEach((game, i) => {
-      console.log('getGameIndex: this games array item id is ', game.gameId)
+      // console.log('getGameIndex: this games array item id is ', game.gameId)
       if (game.gameId === gameId) {
-        console.log('getGameIndex: index match found!')
+        // console.log('getGameIndex: index match found!')
         gameIndex = i
       }
     })
@@ -42,7 +42,7 @@ function log(str, gameState = lastRecordedGameState) {
   try {
     if (gameState) {
       let gameIndex = getGameIndex(gameState.game.id)
-      console.log(`log: ${str}, turn = ${gameState.turn}, game id = ${gameState.game.id}, game index = ${gameIndex}`)
+      // console.log(`log: ${str}, turn = ${gameState.turn}, game id = ${gameState.game.id}, game index = ${gameIndex}`)
       // return `log: ${str}, turn = ${gameState.turn}, game index = ${gameIndex}`
       games[gameIndex].log[gameState.turn].push(str)
     }

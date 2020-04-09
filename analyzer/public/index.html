@@ -61,7 +61,7 @@
           v-bind:class="{'active':(index === currTurn)}"
           v-for="(state,index) in games[currGame].history"
           v-on:click="currTurn = index">
-          <span class="turn">{{ currTurn }}<span>
+          <span class="turn">{{ currTurn }}</span>
         </li>
       </ul>
     </div>

@@ -52,6 +52,20 @@ function log(str, gameState = lastRecordedGameState) {
   }
 }
 
+function dir(obj, gameState = lastRecordedGameState) {
+  try {
+    if (gameState) {
+      let gameIndex = getGameIndex(gameState.game.id)
+      // console.log(`log: ${str}, turn = ${gameState.turn}, game id = ${gameState.game.id}, game index = ${gameIndex}`)
+      // return `log: ${str}, turn = ${gameState.turn}, game index = ${gameIndex}`
+      games[gameIndex].dir[gameState.turn].push(obj)
+    }
+  } catch (err) {
+    console.error('dir: err = ', err, 'gameState = ', gameState)
+    // return `log: error: ${err}`
+  }
+}
+
 function record(gameState) {
   try {
     // if games is empty, or if new game, add new game object
@@ -61,6 +75,7 @@ function record(gameState) {
         gameId: gameState.game.id,
         history: [],
         log: [],
+        dir: [],
       })
       currGameId = gameState.game.id
     }
@@ -68,6 +83,7 @@ function record(gameState) {
     // push history to latest game
     games[0].history.push(gameState)
     games[0].log.push([])
+    games[0].dir.push([])
     lastRecordedGameState = gameState
   } catch (err) {
     console.error('record: err = ', err)
@@ -85,6 +101,7 @@ function reset(gameState) {
 }
 
 module.exports = {
+  dir,
   init,
   log,
   record,

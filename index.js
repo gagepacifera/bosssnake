@@ -64,8 +64,11 @@ app.post('/move', (request, response) => {
   }
   // console.log(`mode = ${mode.which}`)
   try {
-    analyzer.log(`mode = ${mode.which}`)
-    analyzer.log(`health = ${gameState.you.health}`)
+    if (gameState.turn%2 == 0) {
+      analyzer.log(`mode = ${mode.which}`)
+      analyzer.log(`health = ${gameState.you.health}`)
+      analyzer.dir(gameState.you.body)
+    }
   } catch (err) {
     console.error('analyzer log: error: ', err)
   }

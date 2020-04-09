@@ -78,6 +78,11 @@
       <ul class="log">
         <li v-for="(log,index) in games[currGame].log[currTurn]">{{ games[currGame].log[currTurn][index] }}</li>
       </ul>
+      <h4 v-if="games[currGame].dir[currTurn].length">Dir</h4>
+      <ul class="log" v-if="games[currGame].dir[currTurn].length">
+        <li v-for="(dir,index) in games[currGame].dir[currTurn]">{{ games[currGame].dir[currTurn][index] }}</li>
+      </ul>
+      <span v-for="(dir,index) in games[currGame].dir[currTurn]">{{ consoleDir(games[currGame].dir[currTurn][index]) }}</span>
     </div>
   </div>
 

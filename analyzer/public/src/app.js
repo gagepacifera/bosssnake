@@ -41,14 +41,23 @@ fetch('http://localhost:5000/analyze', { mode: "no-cors" })
       },
       computed: {
         displayConsole: function() {
+          console.log('displayConsole')
           try {
             if (analyzerData && analyzerData.hasOwnProperty('games') && analyzerData.games) {
               // console.log('we have analyzerData and games')
               // console.log(analyzerData.games[analyzerData.currGame].log[analyzerData.currTurn][0])
               var logs = analyzerData.games[analyzerData.currGame].log[analyzerData.currTurn];
+              var dirs = analyzerData.games[analyzerData.currGame].dir[analyzerData.currTurn];
               // if (logs){
               //   logs.forEach((l) => {
               //     console.log(l)
+              //   })
+              // }
+              // if (dirs){
+              //   console.log('dir found!')
+              //   dirs.forEach((d) => {
+              //     console.log(d)
+              //     console.dir(d)
               //   })
               // }
             //    // this.displayConsoleMessages()

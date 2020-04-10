@@ -30,9 +30,6 @@
           {{ game.date | formatTime }} ({{ game.gameId }})
         </option>
       </select>
-      <!-- <div class="game-info">
-        <p>{{ games[currGame].gameId }}</p>
-      </div> -->
     </div>
 
     <div class="controls">
@@ -70,11 +67,9 @@
   <div class="cols">
     <div class="viz">
       <board class="board-wrapper" :state="games[currGame].history[currTurn]"></board>
-      <!-- <board :state="{'game':{'id':'996c76c6-5dfb-4e4c-96f2-ced0df6f0606'},'turn':14,'board':{'height':4,'width':4,'food':[{'x':1,'y':0}],'snakes':[{'id':'a0f94b45-8dc9-4aad-89f3-ffecfde59111','name':'bosssnake','health':86,'body':[{'x':2,'y':1},{'x':1,'y':1},{'x':1,'y':2}]}]},'you':{'id':'a0f94b45-8dc9-4aad-89f3-ffecfde59111','name':'bosssnake','health':86,'body':[{'x':2,'y':1},{'x':1,'y':1},{'x':1,'y':2}]}}"></board> -->
       <p><a v-on:click="consoleDir(games[currGame].history[currTurn])">board data to console &rsaquo;</a></p>
     </div>
     <div class="info">
-      <!-- <pre class="json">{{ games[currGame].history[currTurn] }}</pre> -->
       <h4>Log</h4>
       <ul class="log">
         <li v-for="(log,index) in games[currGame].log[currTurn]">{{ games[currGame].log[currTurn][index] }}</li>
@@ -90,8 +85,6 @@
   <div v-if="!games || games.length == 0">
     <h2>No games to analyze.</h2>
   </div>
-
-  <!-- <div style="display:block">{{ displayConsole }}<div> -->
 
 </div><!-- end #wrapper -->
 

@@ -15,6 +15,7 @@ $food: #ff9d34;
   border-top: $board-border;
   border-left: $board-border;
   display: grid;
+  font-size: 8px;
   height: 100%;
   left: 0;
   position: absolute;
@@ -24,6 +25,7 @@ $food: #ff9d34;
   >* {
     border-bottom: $board-border;
     border-right: $board-border;
+    text-align: center;
 
     &.my-head {
       background-color: darken($my-snake, 10%);
@@ -43,6 +45,17 @@ $food: #ff9d34;
 
     &.food {
       background-color: $food;
+    }
+  }
+
+  &.overlay {
+    background-color: transparent;
+    border-color: transparent;
+
+    >* {
+      background-color: transparent;
+      border-color: transparent;
+      overflow: hidden;
     }
   }
 }

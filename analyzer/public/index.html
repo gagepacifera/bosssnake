@@ -66,7 +66,7 @@
 
   <div class="cols">
     <div class="viz">
-      <board class="board-wrapper" :state="games[currGame].history[currTurn]"></board>
+      <board class="board-wrapper" :state="games[currGame].history[currTurn]" :overlay="games[currGame].overlay[currTurn]"></board>
       <p><a v-on:click="consoleDir(games[currGame].history[currTurn])">board data to console &rsaquo;</a></p>
     </div>
     <div class="info">

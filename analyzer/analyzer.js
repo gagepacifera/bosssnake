@@ -57,6 +57,23 @@ function dir(obj, gameState = lastRecordedGameState) {
   }
 }
 
+function overlay(values, options = {}, gameState = lastRecordedGameState) {
+  try {
+    console.log('overlay: values = ')
+    console.dir(values)
+    if (gameState) {
+      let gameIndex = getGameIndex(gameState.game.id)
+      var overlayObj = options
+      overlayObj.value = values
+      games[gameIndex].overlay[gameState.turn].push(overlayObj)
+      // console.log('overlay: overlayObj = ')
+      // console.dir(overlayObj)
+    }
+  } catch (err) {
+    console.error('overlay: err = ', err, 'gameState = ', gameState)
+  }
+}
+
 function record(gameState) {
   try {
     // if games is empty, or if new game, add new game object
@@ -67,6 +84,7 @@ function record(gameState) {
         history: [],
         log: [],
         dir: [],
+        overlay: [],
       })
       currGameId = gameState.game.id
     }
@@ -75,6 +93,7 @@ function record(gameState) {
     games[0].history.push(gameState)
     games[0].log.push([])
     games[0].dir.push([])
+    games[0].overlay.push([])
     lastRecordedGameState = gameState
   } catch (err) {
     console.error('record: err = ', err)
@@ -95,6 +114,7 @@ module.exports = {
   dir,
   init,
   log,
+  overlay,
   record,
   reset,
 }

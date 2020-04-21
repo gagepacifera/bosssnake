@@ -63,7 +63,7 @@ Vue.component('board', {
       'div',
       {
         domProps: {
-          innerHTML: board.display(this.state)
+          innerHTML: board.display(this.state, this.overlay)
         }
       }
     )
@@ -71,6 +71,10 @@ Vue.component('board', {
   props: {
     state: {
       type: Object,
+      required: true
+    },
+    overlay: {
+      type: Array,
       required: true
     }
   }

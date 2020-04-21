@@ -65,12 +65,29 @@ app.post('/move', (request, response) => {
   // console.log(`mode = ${mode.which}`)
   try {
     if (gameState.turn%2 == 0) {
+
       analyzer.log(`mode = ${mode.which}`)
       analyzer.log(`health = ${gameState.you.health}`)
       analyzer.dir(gameState.you.body)
+
+    } else {
+
+      // create blank map
+      let testOverlay = []
+      for (let x = 0; x < gameState.board.width; x++) {
+        testOverlay.push([])
+        for (let y = 0; y < gameState.board.height; y++) {
+          testOverlay[x].push(null)
+        }
+      }
+
+      testOverlay[6][1] = 'alert'
+
+      analyzer.overlay( testOverlay )
+
     }
   } catch (err) {
-    console.error('analyzer log: error: ', err)
+    console.error('analyzer: error: ', err)
   }
 
   console.log('mode = ', mode.which)

@@ -1,8 +1,10 @@
 /*
  * Return board markup
  */
-function display (gameState) {
+function display (gameState, overlay) {
   try {
+
+    // write board map
 
     let map = getBoardMap(gameState)
 
@@ -23,9 +25,40 @@ function display (gameState) {
 
     html += `</div>`
 
+    // write overlay
+    // console.log('board.display: overlay = ')
+    // console.dir(overlay);
+
+    if (overlay && overlay.length) {
+      for (var i=0; i<overlay.length; i++) {
+        // console.log('this overlay is')
+        // console.dir(JSON.parse(JSON.stringify(overlay[i])))
+        html += `<div class="board overlay">`
+
+        let x = 0;
+        let y = 0;
+        while( y < map[0].length ) {
+          // console.log(`x = ${x}, y = ${y}, entry = ${overlay[i].value[x][y]}`)
+          let tileContent = "";
+          if (overlay[i].value[x][y]) {
+            tileContent = overlay[i].value[x][y]
+          }
+          html += `<div class="tile x-${x} y-${y}"><span>${tileContent}</span></div>`
+          if ( x == gameState.board.width - 1) {
+            x = 0
+            y++
+          } else {
+            x++
+          }
+        }
+
+        html += `</div>`
+      }
+    }
+
     // write variable board styles
     html += `<style>
-      #board {
+      .board {
         grid-template-columns: repeat(${gameState.board.width}, 1fr);
         grid-template-rows: repeat(${gameState.board.height}, 1fr);
       }

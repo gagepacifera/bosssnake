@@ -14,9 +14,6 @@ const util = require('./util/util.js')
 const modeCircles = require('./mode/circles.js')
 const modeFindFood = require('./mode/find-food.js')
 
-
-// const reactions = require('./reactions/reactions.js')
-
 // For deployment to Heroku, the port needs to be set using ENV, so
 // we check for the port number in process.env
 app.set('port', (process.env.PORT || 9007))

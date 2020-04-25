@@ -68,6 +68,10 @@
     <div class="viz">
       <board class="board-wrapper" :state="games[currGame].history[currTurn]" :overlay="games[currGame].overlay[currTurn]"></board>
       <p><a v-on:click="consoleDir(games[currGame].history[currTurn])">board data to console &rsaquo;</a></p>
+      <ul>
+        <li>turn: <span class="info-val">{{ currTurn }}</span></li>
+        <li v-for="snake in games[currGame].history[currTurn].board.snakes">{{ snake.name }}: <span class="info-val">{{ snake.health }}</span></li>
+      </ul>
     </div>
     <div class="info">
       <h4>Log</h4>

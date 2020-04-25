@@ -22,9 +22,10 @@ $food: #ff9d34;
   top: 0;
   width: 100%;
 
-  >* {
+  .tile {
     border-bottom: $board-border;
     border-right: $board-border;
+    position: relative;
     text-align: center;
 
     &.my-head {
@@ -52,10 +53,36 @@ $food: #ff9d34;
     background-color: transparent;
     border-color: transparent;
 
-    >* {
+    .tile {
       background-color: transparent;
       border-color: transparent;
+      cursor: default;
       overflow: hidden;
+    }
+  }
+
+  &.heatmap {
+    .tile {
+      figure {
+        background-color: $primary;
+        display: block;
+        height: 100%;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+      span {
+        bottom: 0;
+        color: $primary;
+        display: block;
+        line-height: 1;
+        opacity: 0.33;
+        position: absolute;
+        left: 0;
+      }
     }
   }
 }

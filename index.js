@@ -80,10 +80,21 @@ app.post('/move', (request, response) => {
           testOverlay[x].push(null)
         }
       }
-
       testOverlay[6][1] = 'alert'
 
       analyzer.overlay( testOverlay )
+
+      // create blank map
+      let testHeatmap = []
+      for (let x = 0; x < gameState.board.width; x++) {
+        testHeatmap.push([])
+        for (let y = 0; y < gameState.board.height; y++) {
+          testHeatmap[x].push( (x+y) / 30 )
+        }
+      }
+      testHeatmap[6][1] = 0
+
+      analyzer.overlay( testHeatmap, {type:'heatmap'} )
 
     }
   } catch (err) {

@@ -26,24 +26,51 @@ function display (gameState, overlay) {
     html += `</div>`
 
     // write overlay
-    // console.log('board.display: overlay = ')
-    // console.dir(overlay);
+    console.log('board.display: overlay = ')
+    console.dir(JSON.parse(JSON.stringify(overlay)));
 
     if (overlay && overlay.length) {
       for (var i=0; i<overlay.length; i++) {
         // console.log('this overlay is')
         // console.dir(JSON.parse(JSON.stringify(overlay[i])))
-        html += `<div class="board overlay">`
+        let typeClass = ""
+
+        if (overlay[i].hasOwnProperty('type') && overlay[i].type === 'heatmap') {
+          typeClass += " heatmap"
+
+          if (overlay[i].hasOwnProperty('color')) {
+            html += `<style>.board.overlay-${i} figure { background-color: ${overlay[i].color}; }</style>`
+          }
+
+        }
+
+        html += `<div class="board overlay overlay-${i}${typeClass}">`
 
         let x = 0;
         let y = 0;
         while( y < map[0].length ) {
           // console.log(`x = ${x}, y = ${y}, entry = ${overlay[i].value[x][y]}`)
-          let tileContent = "";
+          let tileContent = ""
+          let tileHeatmapHtml = ""
           if (overlay[i].value[x][y]) {
             tileContent = overlay[i].value[x][y]
           }
-          html += `<div class="tile x-${x} y-${y}"><span>${tileContent}</span></div>`
+
+          if (overlay[i].hasOwnProperty('type') && overlay[i].type === 'heatmap') {
+            let tileOpacity = 0
+            if (!overlay[i].value[x][y]) {
+              tileOpacity = 0
+            } else if (!isNaN(overlay[i].value[x][y]) && overlay[i].value[x][y] > 1) {
+              tileOpacity = 1
+            } else if (!isNaN(overlay[i].value[x][y]) && overlay[i].value[x][y] < 0) {
+              tileOpacity = 0
+            } else if (!isNaN(overlay[i].value[x][y])) {
+              tileOpacity = parseFloat((overlay[i].value[x][y] * 0.9).toFixed(4)).toString().replace(/^0+/, '')
+            }
+            tileHeatmapHtml = `<figure style="opacity:${tileOpacity}"></figure>`
+            tileContent = tileOpacity
+          }
+          html += `<div class="tile x-${x} y-${y}" title="${tileContent}">${tileHeatmapHtml}<span>${tileContent}</span></div>`
           if ( x == gameState.board.width - 1) {
             x = 0
             y++

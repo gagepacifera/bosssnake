@@ -26,8 +26,8 @@ function display (gameState, overlay) {
     html += `</div>`
 
     // write overlay
-    console.log('board.display: overlay = ')
-    console.dir(JSON.parse(JSON.stringify(overlay)));
+    // console.log('board.display: overlay = ')
+    // console.dir(JSON.parse(JSON.stringify(overlay)));
 
     if (overlay && overlay.length) {
       for (var i=0; i<overlay.length; i++) {
